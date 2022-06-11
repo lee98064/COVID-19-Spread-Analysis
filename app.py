@@ -2,8 +2,8 @@ from flask import Flask, render_template
 import pandas as pd
 import folium
 
-corona_df = pd.read_csv('./datasets/Taiwan-covid-19.csv')
-by_country = corona_df.groupby('縣市別').sum()[
+corona_df = pd.read_csv('./datasets/Taiwan-covid-19-all.csv')
+by_country = corona_df.groupby('全稱').sum()[
     ['新增確診人數', '累計確診人數']]
 cdf = by_country.nlargest(15, '累計確診人數')[['累計確診人數']]
 
@@ -11,7 +11,6 @@ cdf = by_country.nlargest(15, '累計確診人數')[['累計確診人數']]
 # corona_df = pd.read_csv('./datasets/covid-19-dataset-1.csv')
 
 # corona_df = corona_df.dropna()
-
 m = folium.Map(location=[23.6581417, 120.1685611],
                tiles='Stamen toner',
                zoom_start=7)
@@ -21,19 +20,19 @@ pairs = [(country, confirmed)
 
 
 def circle_maker(x):
-    print(x)
     folium.Circle(location=[x[0], x[1]],
-                  radius=float(x[2])*0.08,
+                  radius=float(x[2])*0.1,
                   color="red",
-                  popup='{}\n confirmed cases:{}'.format(x[1], x[0])).add_to(m)
+                  popup='{}\n confirmed cases:{}'.format(x[3], x[2])).add_to(m)
 
 
 corona_df = corona_df.dropna(subset=['Lat'])
 
 corona_df = corona_df.dropna(subset=['Long_'])
 
-corona_df[['Lat', 'Long_', '累計確診人數']].apply(
+corona_df[['Lat', 'Long_', '累計確診人數', '全稱']].apply(
     lambda x: circle_maker(x), axis=1)
+
 
 html_map = m._repr_html_()
 
