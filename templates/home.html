@@ -1,11 +1,17 @@
 {% extends "base.html" %} {% block content %}
 <div class="container">
-    <h1>COVID-19 Spread Analysis</h1>
+  <h1>COVID-19 Spread Analysis</h1>
+  <ul class="nav-list">
+    <li class="nav-item"><a href="./Part1">Part 1</a></li>
+    <li class="nav-item"><a href="./Part2">Part 2</a></li>
+    <li class="nav-item"><a href="./Part3">Part 3</a></li>
+    <li class="nav-item"><a href="./Taiwan">Taiwan</a></li>
+  </ul>
   <div class="row">
     
     <div class="col-4">
+        <h2>{{ title }}</h2>
         <h5><font color="red">Top 15 countries</font></h5>
-        <p>This data comes from a resource</p>
         <table class="table-responsive-sm table-dark">
         <thead>
             <tr>
@@ -17,11 +23,13 @@
     {% for pair in pairs %}
     <tr>
     <td>{{ pair[0]}}</td>
-    <td>{{ pair[1]}}</td>
+    <td align="right">{{ pair[1]}}</td>
     </tr>
     {% endfor %}
     </tbody>
-    </table></div>
+    </table>
+    <p class="mt-3">資料來源： </p>
+  </div>
     <div class="col-8">
         <h5><font color="firebrick">world map of corona cases</font></h5>
         <p>using the same data we provided an updated map that contains</p>

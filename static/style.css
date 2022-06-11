@@ -7,3 +7,31 @@ td,
 tr {
   color: white;
 }
+
+.nav-list {
+  margin-top: 20px;
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.nav-list .nav-item {
+  margin-right: 10px;
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+.nav-list .nav-item:nth-child(1) {
+  margin-left: 0px;
+}
+
+.nav-list .nav-item a {
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-list .nav-item a:hover {
+  border-bottom: 2px solid #fff;
+}
