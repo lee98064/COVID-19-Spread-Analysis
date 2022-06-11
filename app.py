@@ -2,36 +2,36 @@ from flask import Flask, render_template
 import pandas as pd
 import folium
 
-corona_df = pd.read_csv('./datasets/covid-19-dataset-1.csv')
-by_country = corona_df.groupby('Country_Region').sum()[
-    ['Confirmed', 'Deaths', 'Recovered', 'Active']]
-cdf = by_country.nlargest(15, 'Confirmed')[['Confirmed']]
+corona_df = pd.read_csv('./datasets/Taiwan-covid-19.csv')
+by_country = corona_df.groupby('縣市別').sum()[
+    ['新增確診人數', '累計確診人數']]
+cdf = by_country.nlargest(15, '累計確診人數')[['累計確診人數']]
 
 
 # corona_df = pd.read_csv('./datasets/covid-19-dataset-1.csv')
 
 # corona_df = corona_df.dropna()
 
-m = folium.Map(location=[34.223334, -82.461707],
+m = folium.Map(location=[23.6581417, 120.1685611],
                tiles='Stamen toner',
-               zoom_start=8)
+               zoom_start=7)
 
 pairs = [(country, confirmed)
-         for country, confirmed in zip(cdf.index, cdf['Confirmed'])]
+         for country, confirmed in zip(cdf.index, cdf['累計確診人數'])]
 
 
 def circle_maker(x):
     folium.Circle(location=[x[0], x[1]],
-                  radius=float(x[2])*10,
+                  radius=float(x[2])*0.2,
                   color="red",
-                  popup='{}\n confirmed cases:{}'.format(x[3], x[2])).add_to(m)
+                  popup='{}\n confirmed cases:{}'.format(x[1], x[0])).add_to(m)
 
 
 corona_df = corona_df.dropna(subset=['Lat'])
 
 corona_df = corona_df.dropna(subset=['Long_'])
 
-corona_df[['Lat', 'Long_', 'Confirmed', 'Combined_Key']].apply(
+corona_df[['Lat', 'Long_', '累計確診人數']].apply(
     lambda x: circle_maker(x), axis=1)
 
 html_map = m._repr_html_()
