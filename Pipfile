@@ -7,6 +7,7 @@ name = "pypi"
 flask = "*"
 folium = "*"
 pandas = "*"
+flask-ngrok = "*"
 
 [dev-packages]
 autopep8 = "*"

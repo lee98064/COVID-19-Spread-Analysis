@@ -1,10 +1,12 @@
 from flask import Flask, redirect, render_template, url_for
+from flask_ngrok import run_with_ngrok
 from controllers.Part1 import Part1
 from controllers.Part2 import Part2
 from controllers.Part3 import Part3
 from controllers.Taiwan import Taiwan
 
 app = Flask(__name__)
+run_with_ngrok(app)
 
 
 @app.route('/')
@@ -37,4 +39,4 @@ def taiwan():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
