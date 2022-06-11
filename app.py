@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, url_for
 from controllers.Part1 import Part1
 from controllers.Part2 import Part2
+from controllers.Part3 import Part3
 
 app = Flask(__name__)
 
@@ -24,7 +25,8 @@ def part2():
 
 @app.route('/Part3')
 def part3():
-    pass
+    part3 = Part3().main()
+    return render_template("home.html", table=part3['cdf'], cmap=part3['html_map'], pairs=part3['pairs'], title="Part 3")
 
 
 if __name__ == "__main__":
