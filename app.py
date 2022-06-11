@@ -21,8 +21,9 @@ pairs = [(country, confirmed)
 
 
 def circle_maker(x):
+    print(x)
     folium.Circle(location=[x[0], x[1]],
-                  radius=float(x[2])*0.2,
+                  radius=float(x[2])*0.08,
                   color="red",
                   popup='{}\n confirmed cases:{}'.format(x[1], x[0])).add_to(m)
 
